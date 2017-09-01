@@ -1,7 +1,7 @@
 // ==UserScript==
-// @namespace https://bitbucket.org/jcarrelli
+// @namespace https://bitbucket.org/fluxpin
 // @name YouTube Video Bookmarks
-// @version 0.1a1
+// @version 0.1a2
 // @include https://www.youtube.com/user/*/videos?flow=list&sort=dd&view=0
 // @require util.js
 // @grant GM_getValue
@@ -9,12 +9,12 @@
 // ==/UserScript==
 
 var USER = /user\/([A-Za-z0-9]+)/;
-var VIDEOS = 'ul#browse-items-primary';
-var VIDEO = 'li.browse-list-item-container';
-var VIDEOLINK = 'h3.yt-lockup-title>a';
+var VIDEOS = 'ytd-section-list-renderer>div#contents';
+var VIDEO = 'ytd-item-section-renderer';
+var VIDEOLINK = 'a#video-title';
 var VIDEOID = /v=([\w-]+)/;
-var VIDEOMARK = 'ul.yt-lockup-meta-info';
-var LOAD = 'button.load-more-button';
+var VIDEOMARK = 'div#metadata-line';
+var LOAD = 'ytd-section-list-renderer>div#continuations';
 
 var BOOKMARK = '<p style=color:blue>Bookmark</p>';
 var BOOKMARKED = '<p style=color:red>Bookmarked</p>';
@@ -36,7 +36,7 @@ function appendButton(el, id) {
     };
 
     appendButton = function (el, id) {
-        var button = document.createElement('button');
+        var button = document.createElement('span');
         button.innerHTML = BOOKMARK;
         button.onclick = function () {
             GM_setValue(user, id);
@@ -68,7 +68,7 @@ function load() {
     var button = $(LOAD);
     if (!button)
         return false;
-    button.click();
+    button.scrollIntoView(false);
     return true;
 }
 
