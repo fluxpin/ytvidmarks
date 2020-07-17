@@ -1,20 +1,20 @@
 // ==UserScript==
-// @namespace https://bitbucket.org/fluxpin
+// @namespace https://github.com/fluxpin
 // @name YouTube Video Bookmarks
-// @version 0.1a2
-// @include https://www.youtube.com/user/*/videos?flow=list&sort=dd&view=0
+// @version 0.1a3
+// @include https://www.youtube.com/user/*/videos?flow=grid&sort=dd&view=0
 // @require util.js
 // @grant GM_getValue
 // @grant GM_setValue
 // ==/UserScript==
 
 var USER = /user\/([A-Za-z0-9]+)/;
-var VIDEOS = 'ytd-section-list-renderer>div#contents';
-var VIDEO = 'ytd-item-section-renderer';
+var VIDEOS = 'ytd-grid-renderer>div#items';
+var VIDEO = 'ytd-grid-video-renderer';
 var VIDEOLINK = 'a#video-title';
 var VIDEOID = /v=([\w-]+)/;
 var VIDEOMARK = 'div#metadata-line';
-var LOAD = 'ytd-section-list-renderer>div#continuations';
+var LOAD = 'ytd-grid-renderer>div#continuations';
 
 var BOOKMARK = '<p style=color:blue>Bookmark</p>';
 var BOOKMARKED = '<p style=color:red>Bookmarked</p>';
