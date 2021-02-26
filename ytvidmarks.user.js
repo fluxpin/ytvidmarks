@@ -1,7 +1,7 @@
 // ==UserScript==
 // @namespace https://github.com/fluxpin
 // @name YouTube Video Bookmarks
-// @version 0.1a4
+// @version 0.1a5
 // @include https://www.youtube.com/user/*/videos?flow=grid&sort=dd&view=0
 // @require util.js
 // @grant GM.getValue
@@ -13,7 +13,7 @@ var VIDEOS = 'ytd-grid-renderer>div#items';
 var VIDEO = 'ytd-grid-video-renderer';
 var VIDEOLINK = 'a#video-title';
 var VIDEOID = /v=([\w-]+)/;
-var VIDEOMARK = 'div#dismissable';
+var VIDEOMARK = 'div#dismissible';
 var LOAD = 'ytd-grid-renderer>div#continuations';
 
 var BOOKMARK = '<p style=color:blue>Bookmark</p>';
