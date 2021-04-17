@@ -1,14 +1,14 @@
 // ==UserScript==
 // @namespace https://github.com/fluxpin
 // @name YouTube Video Bookmarks
-// @version 0.1a5
-// @include https://www.youtube.com/user/*/videos?flow=grid&sort=dd&view=0
+// @version 0.1a6
+// @include https://www.youtube.com/channel/*/videos?view=0&sort=dd
 // @require util.js
 // @grant GM.getValue
 // @grant GM.setValue
 // ==/UserScript==
 
-var USER = /user\/([A-Za-z0-9]+)/;
+var CHANNEL = /channel\/([A-Za-z0-9_-]+)/;
 var VIDEOS = 'ytd-grid-renderer>div#items';
 var VIDEO = 'ytd-grid-video-renderer';
 var VIDEOLINK = 'a#video-title';
@@ -19,8 +19,8 @@ var LOAD = 'ytd-grid-renderer>div#continuations';
 var BOOKMARK = '<p style=color:blue>Bookmark</p>';
 var BOOKMARKED = '<p style=color:red>Bookmarked</p>';
 
-function getUser() {
-    return location.pathname.match(USER)[1];
+function getChannel() {
+    return location.pathname.match(CHANNEL)[1];
 }
 
 function isMarked() {
@@ -28,8 +28,8 @@ function isMarked() {
 }
 
 async function appendButton(el, id) {
-    var user = getUser();
-    var marked = await GM.getValue(user);
+    var channel = getChannel();
+    var marked = await GM.getValue(channel);
 
     isMarked = function () {
         return !isString(marked);
@@ -39,7 +39,7 @@ async function appendButton(el, id) {
         var button = document.createElement('button');
         button.innerHTML = BOOKMARK;
         button.onclick = async () => {
-            await GM.setValue(user, id);
+            await GM.setValue(channel, id);
             if (marked instanceof Element)
                 marked.innerHTML = BOOKMARK;
             marked = button;
